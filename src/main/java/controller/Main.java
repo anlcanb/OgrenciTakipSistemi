@@ -63,12 +63,15 @@ public class Main {
                 "FOREIGN KEY (ogretmen_id) REFERENCES ogretmen(id))";
 
         String notlarTable = "CREATE TABLE IF NOT EXISTS notlar (" +
-                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "ogrenci_id INTEGER," +
-                "ders_id INTEGER," +
-                "not INTEGER," +
-                "FOREIGN KEY (ogrenci_id) REFERENCES ogrenci(id)," +
-                "FOREIGN KEY (ders_id) REFERENCES ders(id))";
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "ogrenci_id INTEGER NOT NULL, " +
+                "ders_id INTEGER NOT NULL, " +
+                "not REAL, " +
+                "FOREIGN KEY (ogrenci_id) REFERENCES ogrenci(id), " +
+                "FOREIGN KEY (ders_id) REFERENCES ders(id)" +
+                ");";
+
+
 
         try (Connection conn = DBConnection.getConnection();
              Statement stmt = conn.createStatement()) {
