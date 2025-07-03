@@ -8,6 +8,10 @@ import java.util.List;
 
 public class OgrenciDAO {
 
+
+
+
+
     public void ogrenciEkle(Ogrenci ogrenci) {
         String sql = "INSERT INTO ogrenci(ad, soyad, kullanici_adi, sifre) VALUES (?, ?, ?, ?)";
 
@@ -26,6 +30,35 @@ public class OgrenciDAO {
             System.out.println("⚠️ Öğrenci eklenirken hata oluştu: " + e.getMessage());
         }
     }
+
+
+    public Ogrenci girisYap(String kullaniciAdi, String sifre) {
+        String sql = "SELECT * FROM ogrenci WHERE kullanici_adi = ? AND sifre = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, kullaniciAdi);
+            ps.setString(2, sifre);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return new Ogrenci(
+                        rs.getInt("id"),
+                        rs.getString("ad"),
+                        rs.getString("soyad"),
+                        rs.getString("kullanici_adi"),
+                        rs.getString("sifre")
+                );
+            }
+
+        } catch (SQLException e) {
+            System.out.println("❌ Giriş hatası: " + e.getMessage());
+        }
+        return null;
+    }
+
+
+
 
     public List<Ogrenci> ogrenciListele() {
         List<Ogrenci> ogrenciler = new ArrayList<>();
@@ -52,4 +85,34 @@ public class OgrenciDAO {
 
         return ogrenciler;
     }
+
+
+
+    // OgrenciDAO.java içine ekleyin
+    public List<Ogrenci> ogrencileriDerseGore(int dersId) {
+        List<Ogrenci> list = new ArrayList<>();
+        String sql = """
+        SELECT o.* FROM ogrenci o
+        JOIN ogrenci_ders od ON o.id = od.ogrenci_id
+        WHERE od.ders_id = ?
+    """;
+        try (Connection c = DBConnection.getConnection();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+
+            ps.setInt(1, dersId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Ogrenci(
+                        rs.getInt("id"),
+                        rs.getString("ad"),
+                        rs.getString("soyad"),
+                        rs.getString("kullanici_adi"),
+                        rs.getString("sifre")));
+            }
+        } catch (SQLException e) {
+            System.out.println("Öğrenci çekme hatası: " + e.getMessage());
+        }
+        return list;
+    }
+
 }
