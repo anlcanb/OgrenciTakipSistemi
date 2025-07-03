@@ -31,4 +31,11 @@ public class Ogrenci {
 
     public String getSifre() { return sifre; }
     public void setSifre(String sifre) { this.sifre = sifre; }
+
+
+    @Override
+    public String toString() {
+        return ad + " " + soyad;
+    }
+
 }

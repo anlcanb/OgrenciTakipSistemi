@@ -23,4 +23,10 @@ public class Ders {
 
     public int getOgretmenid() {return ogretmen_id;}
     public void setOgretmenid() {this.ogretmen_id = ogretmen_id;}
+
+    @Override
+    public String toString() {
+        return ad + " (ID: " + id + ")";
+    }
+
 }

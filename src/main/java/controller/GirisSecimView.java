@@ -12,8 +12,8 @@ public class GirisSecimView extends Application {
 
     @Override
     public void start(Stage stage) {
-        Button ogrenciBtn  = new Button("👨‍🎓 Öğrenci Girişi");
-        Button ogretmenBtn = new Button("👨‍🏫 Öğretmen Girişi");
+        Button ogrenciBtn  = new Button(" Öğrenci Girişi");
+        Button ogretmenBtn = new Button(" Öğretmen Girişi");
 
         ogrenciBtn.setOnAction(e -> {
             LoginView login = new LoginView();
