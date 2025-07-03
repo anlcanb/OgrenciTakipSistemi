@@ -66,6 +66,16 @@ public class Main {
                     FOREIGN KEY (ogrenci_id) REFERENCES ogrenci(id),
                     FOREIGN KEY (ders_id) REFERENCES ders(id))""";
 
+        String ogrenci_dersTable = """
+        CREATE TABLE IF NOT EXISTS ogrenci_ders (
+            ogrenci_id INTEGER,
+            ders_id    INTEGER,
+            PRIMARY KEY (ogrenci_id, ders_id),
+            FOREIGN KEY (ogrenci_id) REFERENCES ogrenci(id),
+            FOREIGN KEY (ders_id)    REFERENCES ders(id)
+        )""";
+
+
         try (Connection c = DBConnection.getConnection();
              Statement s = c.createStatement()) {
 
@@ -76,6 +86,7 @@ public class Main {
             s.execute(ogrenciTable);
             s.execute(ogretmenTable);
             s.execute(dersTable);
+            s.execute(ogrenci_dersTable);
             s.execute(notlarTable);
 
             System.out.println("✅ Tablolar hazır.");

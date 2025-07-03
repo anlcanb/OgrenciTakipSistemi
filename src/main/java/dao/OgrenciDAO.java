@@ -96,6 +96,8 @@ public class OgrenciDAO {
         JOIN ogrenci_ders od ON o.id = od.ogrenci_id
         WHERE od.ders_id = ?
     """;
+
+
         try (Connection c = DBConnection.getConnection();
              PreparedStatement ps = c.prepareStatement(sql)) {
 
