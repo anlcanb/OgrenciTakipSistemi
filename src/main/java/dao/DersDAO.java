@@ -43,6 +43,24 @@ public List<Ders> dersListele(){
     return list;
 }
 
+    // DersDAO.java
+    public String getDersAdiById(int id) {
+        String sql = "SELECT ad FROM ders WHERE id = ?";
+        try (Connection c = DBConnection.getConnection();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) return rs.getString("ad");
+        } catch (SQLException e) {
+            System.out.println("⛔ Ders adı çekme hatası: " + e.getMessage());
+        }
+        return "Bilinmeyen Ders";
+    }
+
+
+
+
+
 
     public void dersSil(int dersId) {
         String sql = "DELETE FROM ders WHERE ders_id = ?";

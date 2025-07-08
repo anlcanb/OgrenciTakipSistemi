@@ -41,7 +41,7 @@ public class TeacherPanel {
         Button kaydetBtn   = new Button("Not Kaydet");
         Button guncelleBtn = new Button("Not Güncelle");
 
-        Label  ortLabel   = new Label("📊 Ders Ortalaması: -");
+        Label  ortLabel   = new Label(" Ders Ortalaması: -");
         Label  bilgiLabel = new Label();
 
         /* Ders seçildiğinde öğrencileri ve ortalamayı yükle */
@@ -50,13 +50,13 @@ public class TeacherPanel {
             notField.clear();
 
             Ders d = dersBox.getValue();
-            if (d == null) { ortLabel.setText("📊 Ders Ortalaması: -"); return; }
+            if (d == null) { ortLabel.setText(" Ders Ortalaması: -"); return; }
 
             ogrList.getItems().addAll(
                     new OgrenciDAO().ogrencileriDerseGore(d.getId()));
 
             double ort = new NotDAO().dersOrtalamasi(d.getId());
-            ortLabel.setText("📊 Ders Ortalaması: " + String.format("%.2f", ort));
+            ortLabel.setText(" Ders Ortalaması: " + String.format("%.2f", ort));
         });
 
         /* Öğrenci seçilince not alanını doldur */
@@ -77,7 +77,7 @@ public class TeacherPanel {
         /* Ortalamayı yenileyen yardımcı */
         Runnable ortYenile = () -> {
             double ort = new NotDAO().dersOrtalamasi(dersBox.getValue().getId());
-            ortLabel.setText("📊 Ders Ortalaması: " + String.format("%.2f", ort));
+            ortLabel.setText(" Ders Ortalaması: " + String.format("%.2f", ort));
         };
 
         /* NOT KAYDET (UPSERT) */
@@ -89,12 +89,12 @@ public class TeacherPanel {
                         ogrList.getSelectionModel().getSelectedItem().getId(),
                         dersBox.getValue().getId(),
                         puan);
-                bilgiLabel.setText("✅ Not kaydedildi.");
+                bilgiLabel.setText(" Not kaydedildi.");
                 ortYenile.run();
             } catch (NumberFormatException ex) {
-                bilgiLabel.setText("⚠️ 0-100 arası sayı girin!");
+                bilgiLabel.setText(" 0-100 arası sayı girin!");
             } catch (Exception ex) {
-                bilgiLabel.setText("⚠️ " + ex.getMessage());
+                bilgiLabel.setText("⚠ " + ex.getMessage());
             }
         });
 
@@ -108,12 +108,12 @@ public class TeacherPanel {
                                 ogrList.getSelectionModel().getSelectedItem().getId(),
                                 dersBox.getValue().getId(),
                                 puan));
-                bilgiLabel.setText("✅ Not güncellendi.");
+                bilgiLabel.setText(" Not güncellendi.");
                 ortYenile.run();
             } catch (NumberFormatException ex) {
-                bilgiLabel.setText("⚠️ 0-100 arası sayı girin!");
+                bilgiLabel.setText(" 0-100 arası sayı girin!");
             } catch (Exception ex) {
-                bilgiLabel.setText("⚠️ " + ex.getMessage());
+                bilgiLabel.setText("⚠ " + ex.getMessage());
             }
         });
 

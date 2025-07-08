@@ -13,10 +13,10 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // 1) Tabloları oluştur
+        //  Tabloları oluştur
         createTablesIfNotExists();
 
-        // 2) Test amaçlı örnek kayıt (istersen yoruma al)
+        //  Test amaçlı örnek kayıt
         OgrenciDAO ogrenciDAO = new OgrenciDAO();
         ogrenciDAO.ogrenciEkle(new Ogrenci(0, "Ali", "Yılmaz", "aliyilmaz", "1234"));
 
@@ -27,12 +27,12 @@ public class Main {
         DersDAO dersDAO = new DersDAO();
         dersDAO.dersEkle(new Ders(0, "NDP", 1));
 
-        // 3) JavaFX’i başlat  ⬅️  ***BURADA***
+        // 3) JavaFX’i başlat    ***BURADA***
         Application.launch(GirisSecimView.class, args);
 
     }
 
-    /* ---------- tablo oluşturan metod ---------- */
+    /*  tablo oluşturan metod  */
     private static void createTablesIfNotExists() {
         String ogrenciTable = """
                 CREATE TABLE IF NOT EXISTS ogrenci (

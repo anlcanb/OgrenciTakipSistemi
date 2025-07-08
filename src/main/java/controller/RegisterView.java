@@ -39,7 +39,7 @@ public class RegisterView {
 
             OgrenciDAO dao = new OgrenciDAO();
             dao.ogrenciEkle(yeni);
-            status.setText("✅ Kayıt başarılı!");
+            status.setText(" Kayıt başarılı!");
         });
 
         root.getChildren().addAll(

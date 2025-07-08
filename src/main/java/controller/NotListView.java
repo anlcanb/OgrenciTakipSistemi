@@ -1,55 +1,67 @@
+// NotListView.java
 package controller;
 
+import dao.DersDAO;
+import dao.NotDAO;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import dao.NotDAO;
 import model.Not;
+
 import java.util.List;
 
 public class NotListView {
 
-    /** Öğrenci ID'sine ait notları listeleyen pencere */
+    /** Öğrenci ID’sine ait notları listeleyen pencere */
     public static void show(int ogrenciId) {
 
-        // 1) JavaFX sahne & temel VBox
+        // JavaFX temel sahne
         Stage stage = new Stage();
-        VBox vbox = new VBox(10);
-        vbox.setPadding(new Insets(20));
+        VBox  root  = new VBox(10);
+        root.setPadding(new Insets(20));
 
-        // 2) Başlık
-        Label title = new Label("Notlarınız:");
+        Label baslik = new Label("Notlarınız:");
 
-        // 3) Ortalama label – önce oluştur, sonra değeri set et
-        Label ortalamaLabel = new Label();      // boş yarat
-        NotDAO dao = new NotDAO();              // DAO
-        double ortalama = dao.ortalamaHesapla(ogrenciId);
-        ortalamaLabel.setText("Ortalama: " + String.format("%.2f", ortalama));
-
-        // 4) Not listesi
+        /* ---------- NOT LİSTESİ ---------- */
         ListView<String> listView = new ListView<>();
-        List<Not> notlar = dao.getOgrenciNotlari(ogrenciId);
+        NotDAO  notDao  = new NotDAO();
+        DersDAO dersDao = new DersDAO();
+
+        List<Not> notlar = notDao.getOgrenciNotlari(ogrenciId);
+
         for (Not n : notlar) {
+            String dersAdi = dersDao.getDersAdiById(n.getDersId());
             listView.getItems().add(
-                    "Ders ID: " + n.getDersId() + "  -  Not: " + n.getNot()
+                    dersAdi + "  –  Not: " + n.getNot()
             );
         }
 
-        // 5) VBox’a SIRAYLA ekle
-        vbox.getChildren().addAll(title, listView, ortalamaLabel);
+        /* ---------- ORTALAMALAR ---------- */
+        double ogrOrt   = notDao.ogrenciOrtalamasi(ogrenciId);
+        Label  ogrLbl   = new Label("Öğrenci Ortalaması: "
+                + String.format("%.2f", ogrOrt));
 
-        // 6) Sahneyi göster
-        Scene scene = new Scene(vbox, 350, 300);
-        stage.setScene(scene);
+        // Eğer listede tek ders varsa onun ID’sini alabiliriz;
+        // çok ders varsa kullanıcı satır seçtiğinde de güncelleyebiliriz.
+        double dersOrt = 0.0;
+        if (!notlar.isEmpty()) {
+            // ilk satırın ders ortalamasını göster (basit çözüm)
+            dersOrt = notDao.dersOrtalamasi(notlar.get(0).getDersId());
+        }
+        Label  dersLbl  = new Label("Ders Ortalaması: "
+                + String.format("%.2f", dersOrt));
+
+        // Geçti / Kaldı etiketi
+        Label durumLbl  = new Label(ogrOrt >= 60 ? "GEÇTİ ✅" : "KALDI ❌");
+
+        /* ---------- DÜZEN ---------- */
+        root.getChildren().addAll(baslik, listView, ogrLbl, dersLbl, durumLbl);
+
+        stage.setScene(new Scene(root, 380, 320));
         stage.setTitle("Notlarım");
         stage.show();
-
-
-        Label durum = new Label(ortalama >= 60 ? "GEÇTİ ✅" : "KALDI ❌");
-        vbox.getChildren().add(durum);
-
     }
 }

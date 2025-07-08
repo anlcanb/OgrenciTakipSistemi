@@ -33,7 +33,7 @@ public class TeacherLoginView extends Application {
                 TeacherPanel.show(g.getId());   // ikinci pencereyi aç
                 st.close();
             } else {
-                msg.setText("❌ Hatalı giriş!");
+                msg.setText(" Hatalı giriş!");
             }
         });
 

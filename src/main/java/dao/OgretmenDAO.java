@@ -20,9 +20,9 @@ public class OgretmenDAO {
             ps.setString(4, o.getSifre());
             ps.executeUpdate();
 
-            System.out.println("✅ Öğretmen eklendi: " + o.getAd() + " " + o.getSoyad());
+            System.out.println(" Öğretmen eklendi: " + o.getAd() + " " + o.getSoyad());
         } catch (SQLException e) {
-            System.out.println("⛔ Öğretmen eklenemedi: " + e.getMessage());
+            System.out.println(" Öğretmen eklenemedi: " + e.getMessage());
         }
     }
 
