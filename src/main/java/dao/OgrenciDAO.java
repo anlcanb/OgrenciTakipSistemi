@@ -24,10 +24,10 @@ public class OgrenciDAO {
             pstmt.setString(4, ogrenci.getSifre());
 
             pstmt.executeUpdate();
-            System.out.println("✅ Öğrenci başarıyla eklendi.");
+            System.out.println(" Öğrenci başarıyla eklendi.");
 
         } catch (SQLException e) {
-            System.out.println("⚠️ Öğrenci eklenirken hata oluştu: " + e.getMessage());
+            System.out.println(" Öğrenci eklenirken hata oluştu: " + e.getMessage());
         }
     }
 
@@ -80,7 +80,7 @@ public class OgrenciDAO {
             }
 
         } catch (SQLException e) {
-            System.out.println("⚠️ Öğrenciler listelenirken hata oluştu: " + e.getMessage());
+            System.out.println(" Öğrenciler listelenirken hata oluştu: " + e.getMessage());
         }
 
         return ogrenciler;

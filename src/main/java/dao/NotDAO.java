@@ -37,10 +37,10 @@ public class NotDAO {
                 ps2.setInt   (2, dersId);
                 ps2.setDouble(3, puan);
                 ps2.executeUpdate();
-                System.out.println("✅ Not eklendi (UPSERT).");
+                System.out.println(" Not eklendi (UPSERT).");
             }
         } catch (SQLException e) {
-            System.out.println("⛔ UPSERT hata: " + e.getMessage());
+            System.out.println(" UPSERT hata: " + e.getMessage());
         }
     }
 
@@ -56,9 +56,9 @@ public class NotDAO {
             ps.setInt   (2, n.getDersId());
             ps.setDouble(3, n.getNot());
             ps.executeUpdate();
-            System.out.println("✅ Not eklendi.");
+            System.out.println(" Not eklendi.");
         } catch (SQLException e) {
-            System.out.println("⛔ Not ekleme hatası: " + e.getMessage());
+            System.out.println(" Not ekleme hatası: " + e.getMessage());
         }
     }
 
@@ -74,10 +74,10 @@ public class NotDAO {
             ps.setInt   (2, n.getOgrenciId());
             ps.setInt   (3, n.getDersId());
             int aff = ps.executeUpdate();
-            if (aff > 0) System.out.println("✅ Not güncellendi.");
-            else         System.out.println("⚠️ Güncellenecek kayıt bulunamadı.");
+            if (aff > 0) System.out.println(" Not güncellendi.");
+            else         System.out.println(" Güncellenecek kayıt bulunamadı.");
         } catch (SQLException e) {
-            System.out.println("⛔ Not güncelleme hatası: " + e.getMessage());
+            System.out.println(" Not güncelleme hatası: " + e.getMessage());
         }
     }
 
@@ -93,7 +93,7 @@ public class NotDAO {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) return rs.getDouble("not_degeri");
         } catch (SQLException e) {
-            System.out.println("⛔ Not çekme hatası: " + e.getMessage());
+            System.out.println(" Not çekme hatası: " + e.getMessage());
         }
         return null;
     }
@@ -109,7 +109,7 @@ public class NotDAO {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) return rs.getDouble("ort");
         } catch (SQLException e) {
-            System.out.println("⛔ Ortalama hesap hatası: " + e.getMessage());
+            System.out.println(" Ortalama hesap hatası: " + e.getMessage());
         }
         return 0.0;
     }
@@ -125,7 +125,7 @@ public class NotDAO {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) return rs.getDouble("ort");
         } catch (SQLException e) {
-            System.out.println("⛔ Ders ortalama hatası: " + e.getMessage());
+            System.out.println(" Ders ortalama hatası: " + e.getMessage());
         }
         return 0.0;
     }
@@ -142,7 +142,7 @@ public class NotDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) list.add(map(rs));
         } catch (SQLException e) {
-            System.out.println("⛔ Öğrenci notları hata: " + e.getMessage());
+            System.out.println(" Öğrenci notları hata: " + e.getMessage());
         }
         return list;
     }
@@ -164,7 +164,7 @@ public class NotDAO {
              ResultSet rs = st.executeQuery(sql)) {
             while (rs.next()) list.add(map(rs));
         } catch (SQLException e) {
-            System.out.println("⛔ Not listesi hata: " + e.getMessage());
+            System.out.println(" Not listesi hata: " + e.getMessage());
         }
         return list;
     }
@@ -174,7 +174,7 @@ public class NotDAO {
     /* -------------------------------------------------- */
     private boolean gecerliPuan(double p) {
         if (p < 0 || p > 100) {
-            System.out.println("⚠️ Hatalı not: 0‑100 arası olmalı!");
+            System.out.println("⚠ Hatalı not: 0‑100 arası olmalı!");
             return false;
         }
         return true;

@@ -92,7 +92,7 @@ public class TeacherPanel {
                 bilgiLabel.setText(" Not kaydedildi.");
                 ortYenile.run();
             } catch (NumberFormatException ex) {
-                bilgiLabel.setText(" 0-100 arası sayı girin!");
+                bilgiLabel.setText(" 0-100 arasi sayi girmediniz.");
             } catch (Exception ex) {
                 bilgiLabel.setText("⚠ " + ex.getMessage());
             }

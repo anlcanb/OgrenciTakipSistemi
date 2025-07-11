@@ -33,7 +33,7 @@ public class LoginView extends Application {
             OgrenciDAO dao = new OgrenciDAO();
             Ogrenci ogr = dao.girisYap(username, password);
             if (ogr != null) {
-                message.setText("✅ Giriş başarılı: " + ogr.getAd());
+                message.setText("✅ Giriş başarılı: " + ogr.getAd() +" " +ogr.getSoyad());
                 NotListView.show(ogr.getId());
             } else {
                 message.setText("❌ Hatalı kullanıcı adı veya şifre!");
